@@ -10,7 +10,7 @@ export const USERS = [
     email: 'nic.carr@mytestcompany.com',
     mobile: '0488123123',
     office: '73386116-5a18-43ab-9f1d-cc98a59f30af',
-    permission: 0,
+    permission: '0',
     notes: 'User setup the company back in 2013 and has built the business to what it is today',
   },
   {
@@ -24,7 +24,7 @@ export const USERS = [
     email: 'mike.szafran@mytestcompany.com',
     mobile: '0488123123',
     office: '73386116-5a18-43ab-9f1d-cc98a59f30af',
-    permission: 2,
+    permission: '2',
     notes: "Mike's technical skills continue to get straonger and stronger",
   },
   {
@@ -38,7 +38,7 @@ export const USERS = [
     email: 'sue.hood@mytestcompany.com',
     mobile: '0488123123',
     office: 'f15fb1f2-fb52-43f6-adec-6b55802fed58',
-    permission: 1,
+    permission: '1',
     notes: 'Sue has worked with us for many years working from sales to ceo',
   },
 ];

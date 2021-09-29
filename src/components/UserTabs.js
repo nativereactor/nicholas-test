@@ -1,16 +1,13 @@
 import React, { useMemo, useState } from 'react';
-import Select from 'react-select';
 import classnames from 'classnames';
 
 import {
   Button,
   CardBody,
   CardHeader,
-  CustomInput,
   Col,
   FormGroup,
   Label,
-  Input,
   Nav,
   Form,
   NavItem,
@@ -20,15 +17,27 @@ import {
 } from 'reactstrap';
 
 import { Settings, Trash2, User } from 'react-feather';
-import { OFFICES, SALUTATIONS } from '../constants/dummies';
+import UserForm from './UserForm';
+import { expandedLog } from '../utils/helpers';
 
 const UserTabs = ({ user }) => {
   const [activeTab, setActiveTab] = useState('1');
+  const [userData, setUserData] = useState({});
 
   const toggle = (tab) => {
     if (activeTab !== tab) {
       setActiveTab(() => tab);
     }
+  };
+
+  const onChange = (payload) => {
+    setUserData(() => payload);
+  };
+
+  const onSave = () => {
+    expandedLog(userData);
+    // eslint-disable-next-line no-console
+    console.log('\n\n');
   };
 
   const fullName = useMemo(() => [user.firstName, user.middleName, user.lastName].filter((text) => !!text).join(' '), [user]);
@@ -102,151 +111,16 @@ const UserTabs = ({ user }) => {
             </FormGroup>
           </CardHeader>
           <CardBody>
-            <Form>
 
-              {/* DISPLAY / POSITION NAME */}
-              <FormGroup row className="mb-1">
-                <Label sm={2} className="text-sm-left">
-                  Salutation
-                </Label>
-                <Label sm={4} className="text-sm-left">
-                  First Name
-                </Label>
-                <Label sm={3} className="text-sm-left">
-                  Middle Name
-                </Label>
-                <Label sm={3} className="text-sm-left">
-                  Last Name
-                </Label>
-              </FormGroup>
-              <FormGroup row className="mb-1">
-                <Col sm={2}>
-                  <Select
-                    className="react-select-container"
-                    classNamePrefix="react-select"
-                    name="userSalutation"
-                    options={SALUTATIONS}
-                  />
-                </Col>
-                <Col sm={4}>
-                  <Input type="text" name="userFirstName" placeholder="First name" />
-                </Col>
-                <Col sm={3}>
-                  <Input type="text" name="userMiddleName" placeholder="Middle name" />
-                </Col>
-                <Col sm={3}>
-                  <Input type="text" name="userLastName" placeholder="Last name" />
-                </Col>
-              </FormGroup>
+            <UserForm payload={user} onChange={onChange} />
 
-              {/* USER NAME */}
-              <FormGroup row className="mb-1">
-                <Label sm={3} className="text-sm-left">
-                  Display Name
-                </Label>
-                <Col sm={3} />
-                <Label sm={2} className="text-sm-left">
-                  Position
-                </Label>
-                <Col sm={4} />
-              </FormGroup>
-              <FormGroup row className="mb-1">
-                <Col sm={6}>
-                  <Input type="text" name="userDisplayName" placeholder="Perferred display name" />
-                </Col>
-                <Col sm={6}>
-                  <Input type="text" name="userPosition" placeholder="Position" />
-                </Col>
-              </FormGroup>
+            {/* SAVE / UPDATE */}
+            <FormGroup row className="mt-3">
+              <Col sm={12} className="text-sm-right">
+                <Button onClick={onSave} color="success">Save</Button>
+              </Col>
+            </FormGroup>
 
-              {/* OFFICE / CALLER ID */}
-              <FormGroup row className="mb-1">
-                <Label sm={3} className="text-sm-left">
-                  Office Location
-                </Label>
-                <Col sm={3} />
-                <Label sm={3} className="text-sm-left">
-                  Mobile Number
-                </Label>
-                <Col sm={3} />
-              </FormGroup>
-              <FormGroup row className="mb-1">
-                <Col sm={6}>
-                  <Select
-                    className="react-select-container"
-                    classNamePrefix="react-select"
-                    name="userOffice"
-                    options={OFFICES}
-                  />
-                </Col>
-                <Col sm={6}>
-                  <Input type="text" name="userMobile" placeholder="Mobile/Cell Number" />
-                </Col>
-              </FormGroup>
-
-              {/* PERMISSIONS */}
-              <FormGroup row className="mb-1">
-                <Label sm={12} className="text-sm-left">
-                  User Permissions
-                </Label>
-              </FormGroup>
-              <FormGroup row className="mb-1">
-                <Col sm={1} />
-                <Col sm={4}>
-                  <CustomInput
-                    type="radio"
-                    id="userPermissionsDirector"
-                    name="userPermissions"
-                    label="Director"
-                    disabled
-                  />
-                </Col>
-                <Col sm={4}>
-                  <CustomInput
-                    type="radio"
-                    id="userPermissionsManager"
-                    name="userPermissions"
-                    label="Manager"
-                    className="mb-2"
-                  />
-                </Col>
-                <Col sm={3}>
-                  <CustomInput
-                    type="radio"
-                    id="userPermissionsUser"
-                    name="userPermissions"
-                    label="User"
-                    className="mb-2"
-                    defaultChecked
-                  />
-                </Col>
-              </FormGroup>
-
-              {/* NOTES */}
-              <FormGroup row className="mb-1">
-                <Label sm={12} className="text-sm-left">
-                  User Notes
-                </Label>
-              </FormGroup>
-              <FormGroup row className="mb-1">
-                <Col sm={12}>
-                  <Input
-                    type="textarea"
-                    name="textarea"
-                    placeholder="User notes or description..."
-                    rows="3"
-                  />
-                </Col>
-              </FormGroup>
-
-              {/* SAVE / UPDATE */}
-              <FormGroup row className="mt-3">
-                <Col sm={12} className="text-sm-right">
-                  <Button color="success">Save</Button>
-                </Col>
-              </FormGroup>
-
-            </Form>
           </CardBody>
         </TabPane>
 
